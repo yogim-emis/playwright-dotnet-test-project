@@ -26,8 +26,13 @@ jobs:
       run: dotnet build --no-restore      
     - name: Install Playwright browser
       run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+          distribution: zulu
+          java-version: 8
     - name: Test
-      run: dotnet test
+      run: dotnet test --no-build --verbosity normal
       
     - name: Upload Allure Results
       uses: actions/upload-artifact@v4.0.0
