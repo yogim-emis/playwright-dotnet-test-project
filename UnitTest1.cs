@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
+using NUnit.Allure.Core;
 
 namespace PlaywrightTests;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
+[AllureNUnit]
 public class ExampleTest : PageTest
 {
     [Test]
