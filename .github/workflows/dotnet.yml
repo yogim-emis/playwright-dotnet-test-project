@@ -34,25 +34,26 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
-    - name: Get Allure history
-      uses: actions/checkout@v4
+    - name: Load test report history
+      uses: actions/checkout@v3
       if: always()
       continue-on-error: true
       with:
-        ref: gh-pages
-        path: gh-pages
+          ref: gh-pages
+          path: gh-pages
 
-    - name: Generate Allure Report
+    - name: Build test report
       uses: simple-elf/allure-report-action@v1.7
       if: always()
       with:
-          allure_results: allure-results
+          gh_pages: gh-pages
           allure_history: allure-history
+          allure_results: allure-results
 
-    - name: Deploy report to GitHub Pages
-      if: always()
+    - name: Publish test report
       uses: peaceiris/actions-gh-pages@v3
+      if: always()
       with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-history
           publish_branch: gh-pages
+          publish_dir: allure-history
